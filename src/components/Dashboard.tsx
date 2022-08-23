@@ -4,6 +4,7 @@ import ContactList from "./ContactList";
 
 const Dashboard = ({ chat, user }) => {
   const [window, setWindow] = useState("");
+  const [menu, setMenu] = useState(0);
 
   // console.log(user);
 
@@ -31,7 +32,14 @@ const Dashboard = ({ chat, user }) => {
       </main>
 
       <aside>
-        <ContactList chat={chat} setWindow={setWindow} />
+        <div style={{ display: menu === 0 ? "block" : "none" }}>
+          <ContactList chat={chat} setWindow={setWindow} />
+        </div>
+
+        <div>
+          <span onClick={() => setMenu(0)}>Contacts</span>
+          <span onClick={() => setMenu(1)}>Group Chats</span>
+        </div>
       </aside>
     </div>
   );

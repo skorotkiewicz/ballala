@@ -25,6 +25,12 @@
     flex-direction: column;
     border-left: 2px solid #ccc;
     width: 30vw;
+
+    span {
+      margin: 10px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
   }
 }
 
@@ -32,4 +38,28 @@
   background-color: #ccc;
   display: flex;
   flex-direction: column;
+}
+
+.Contact {
+  display: flex;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  margin: 5px;
+
+  .box {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .avatar {
+    padding: 5px;
+  }
+
+  .b-name {
+    font-weight: bold;
+  }
+
+  .b-pubkey {
+    font-size: small;
+  }
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import AddContact from "./AddContact";
+import Contact from "./Contact";
 
 const ContactList = ({ chat, setWindow }) => {
   //   const [messages, setMessages] = useState([]);
@@ -91,34 +92,8 @@ const ContactList = ({ chat, setWindow }) => {
           </div>
         ))}
       </div>
-      <div>
-        <h1>Contacts</h1>
-        {contacts.map((contact, key) => (
-          <div key={key}>
-            <p>{contact.alias}</p>
-            <p>{contact.pubKey}</p>
 
-            <div>
-              <button
-                onClick={() => {
-                  setWindow(contact.pubKey);
-                }}
-              >
-                Chat with {contact.alias}
-              </button>
-            </div>
-            <div>
-              <button
-                onClick={async () => {
-                  await chat.removeContact(contact.pubKey);
-                }}
-              >
-                Remove {contact.alias} from contacts
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+      <Contact contacts={contacts} setWindow={setWindow} chat={chat} />
     </div>
   );
 };

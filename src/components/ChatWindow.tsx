@@ -25,6 +25,20 @@ const ChatWindow = ({ chat, publicKey }) => {
   return (
     <div className="ChatWindow">
       <h2>Messages</h2>
+
+      <div>
+        <details style={{ float: "right" }}>
+          <summary>Actions</summary>
+          <button
+            onClick={async () => {
+              await chat.removeContact(publicKey);
+            }}
+          >
+            Remove user from contacts
+          </button>
+        </details>
+      </div>
+
       <div>
         {messages.map((message, key) => (
           //   <div>{console.log(message)}</div>

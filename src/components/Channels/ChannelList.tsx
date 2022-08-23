@@ -19,11 +19,6 @@ const ChannelList = ({ chat, setWindow }) => {
 
     channelInvitesListener.on((channelInvites) => {
       setChannelInvites(channelInvites);
-
-      //   for (const channelInvite of channelInvites) {
-      //     chat.acceptChannelInvite(channelInvite) ||
-      //       chat.denyChannelInvite(channelInvite);
-      //   }
     });
 
     // chat.inviteToChannel(channel, username, publicKey, domainName);

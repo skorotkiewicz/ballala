@@ -8,7 +8,6 @@ const ChatWindow = ({ chat, publicKey }) => {
   const messagesHandler = async () => {
     const contactMessagesListener = await chat.loadMessagesOfContact(publicKey);
     contactMessagesListener.on((messages) => {
-      // setMessages(prev => [...prev, messages])
       setMessages(messages);
     });
   };
@@ -42,7 +41,6 @@ const ChatWindow = ({ chat, publicKey }) => {
 
       <div>
         {messages.map((message, key) => (
-          //   <div>{console.log(message)}</div>
           <div key={key}>
             <small>{message.time}</small> <small>{message.owner}</small>{" "}
             <p>{message.msg}</p>{" "}

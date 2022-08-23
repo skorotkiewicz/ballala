@@ -8,8 +8,6 @@ const Dashboard = ({ chat, user }) => {
   const [window, setWindow] = useState<any>(null);
   const [menu, setMenu] = useState(0);
 
-  // console.log(user);
-
   return (
     <div className="Dashboard">
       <main>

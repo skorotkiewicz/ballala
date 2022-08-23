@@ -10,7 +10,6 @@ const ChatWindowChannel = ({ window, chat }) => {
     console.log(loaded.current, "asd", window.key);
 
     const channelMessagesListener = await chat.loadMessagesOfChannel(window);
-    // console.log(channelMessagesListener);
 
     channelMessagesListener.on((messages) => {
       console.log(messages);
@@ -19,7 +18,6 @@ const ChatWindowChannel = ({ window, chat }) => {
   };
 
   const send = useCallback(async () => {
-    // XXX -> peerInfo
     await chat.sendMessageToChannel(window, message, {
       action: "join",
       alias: chat.gun.user().alias,
@@ -33,7 +31,6 @@ const ChatWindowChannel = ({ window, chat }) => {
   useEffect(() => {
     loaded.current !== window.key && channelMessagesHandler();
     loaded.current = window.key;
-    // channelMessagesHandler();
   }, [window]);
 
   return (

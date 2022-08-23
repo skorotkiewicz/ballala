@@ -18,7 +18,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     {/* <BrowserRouter>
       <Routes>
         <Route path="/" element={<App chat={chat} />} />
+
+        <Route path="/channel" element={<Channel />} />
         <Route path="/channel/:channelId" element={<Channel />} />
+
         <Route
           path="*"
           element={

@@ -33,6 +33,9 @@ const ChannelList = ({ chat, setWindow }) => {
   return (
     <div>
       <CreateChannel chat={chat} />
+      <button onClick={() => setWindow("publicChannels")}>
+        Public Channels
+      </button>
       <ChannelInvites channelInvites={channelInvites} chat={chat} />
       <Channel channels={channels} setWindow={setWindow} chat={chat} />
     </div>

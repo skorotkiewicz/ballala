@@ -7,8 +7,6 @@ const ChatWindowChannel = ({ window, chat }) => {
   const loaded = useRef(null);
 
   const channelMessagesHandler = async () => {
-    console.log(loaded.current, "asd", window.key);
-
     const channelMessagesListener = await chat.loadMessagesOfChannel(window);
 
     channelMessagesListener.on((messages) => {
@@ -55,7 +53,7 @@ const ChatWindowChannel = ({ window, chat }) => {
 
         <div>
           {messages.map((message, key) => (
-            <div key={key}>
+            <div key={`${key}-messages`}>
               <small>{message.time}</small>{" "}
               <small>{message.peerInfo.alias}</small> <p>{message.msg}</p>{" "}
             </div>

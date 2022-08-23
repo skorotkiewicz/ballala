@@ -1,6 +1,9 @@
 import { truncate } from "../../lib/util";
+// import { useParams, useNavigate, useLocation } from "react-router-dom";
 
 const Channel = ({ channels, setWindow, chat }) => {
+  //   let navigate = useNavigate();
+
   return (
     <div>
       <h1>Channels</h1>
@@ -11,8 +14,11 @@ const Channel = ({ channels, setWindow, chat }) => {
           key={key}
           onClick={async () => {
             // await chat.joinPublicChannel(channel);
+
             console.log(channel);
             setWindow(channel);
+
+            // navigate("/channel/" + channel.key);
           }}
         >
           <div className="avatar">

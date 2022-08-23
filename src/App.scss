@@ -63,3 +63,14 @@
     font-size: small;
   }
 }
+
+.publicChannels-list {
+  display: flex;
+  flex-direction: column;
+
+  div {
+    display: flex;
+    margin: 5px;
+    border-bottom: 1px solid #ccc;
+  }
+}

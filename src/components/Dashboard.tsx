@@ -3,6 +3,7 @@ import ChatWindow from "./Contacts/ChatWindow";
 import ContactList from "./Contacts/ContactList";
 import ChannelList from "./Channels/ChannelList";
 import ChatWindowChannel from "./Channels/ChatWindowChannel";
+import PublicChannels from "./Channels/PublicChannels";
 
 const Dashboard = ({ chat, user }) => {
   const [window, setWindow] = useState<any>(null);
@@ -26,13 +27,19 @@ const Dashboard = ({ chat, user }) => {
           </button>
         </div>
 
+        {window === "publicChannels" && (
+          <PublicChannels setWindow={setWindow} chat={chat} />
+        )}
+
         {window?.kind === "channel" && (
           <ChatWindowChannel chat={chat} window={window} />
         )}
 
-        {window && window?.kind !== "channel" && (
-          <ChatWindow chat={chat} publicKey={window} />
-        )}
+        {window &&
+          window?.kind !== "channel" &&
+          window !== "publicChannels" && (
+            <ChatWindow chat={chat} publicKey={window} />
+          )}
       </main>
 
       <aside>

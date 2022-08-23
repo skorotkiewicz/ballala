@@ -28,7 +28,7 @@ const CreateChannel = ({ chat }) => {
           <input
             type="checkbox"
             defaultChecked={isPrivate}
-            onChange={(prev) => setIsPrivate(!prev)}
+            onChange={() => setIsPrivate((prev) => !prev)}
           />
         </label>
       </div>

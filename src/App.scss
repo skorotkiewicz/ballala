@@ -45,7 +45,8 @@
   }
 }
 
-.Contact {
+.Contact,
+.Channel {
   display: flex;
   cursor: pointer;
   border: 1px solid #ccc;
@@ -78,4 +79,10 @@
     margin: 5px;
     border-bottom: 1px solid #ccc;
   }
+}
+
+button,
+summary,
+label {
+  cursor: pointer;
 }

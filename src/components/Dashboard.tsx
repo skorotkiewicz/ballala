@@ -43,6 +43,8 @@ const Dashboard = ({ chat, user }) => {
       </main>
 
       <aside>
+        {/* <button onClick={() => chat.reset()}>Reset</button> */}
+
         <div style={{ display: menu === 0 ? "block" : "none" }}>
           <ContactList chat={chat} setWindow={setWindow} />
         </div>

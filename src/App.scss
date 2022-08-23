@@ -38,6 +38,11 @@
   background-color: #ccc;
   display: flex;
   flex-direction: column;
+  height: 80vh;
+
+  .msgs {
+    overflow-y: scroll;
+  }
 }
 
 .Contact {

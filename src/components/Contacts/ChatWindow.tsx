@@ -4,11 +4,17 @@ const ChatWindow = ({ chat, publicKey }) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
   const loaded = useRef(null);
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const messagesHandler = async () => {
     const contactMessagesListener = await chat.loadMessagesOfContact(publicKey);
     contactMessagesListener.on((messages) => {
       setMessages(messages);
+      scrollToBottom();
     });
   };
 
@@ -43,7 +49,8 @@ const ChatWindow = ({ chat, publicKey }) => {
         {messages.map((message, key) => (
           <div key={key}>
             <small>{message.time}</small> <small>{message.owner}</small>{" "}
-            <p>{message.msg}</p>{" "}
+            <p>{message.msg}</p>
+            <div ref={messagesEndRef} />
           </div>
         ))}
       </div>

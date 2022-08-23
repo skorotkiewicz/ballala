@@ -5,6 +5,11 @@ const ChatWindowChannel = ({ window, chat }) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
   const loaded = useRef(null);
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const channelMessagesHandler = async () => {
     const channelMessagesListener = await chat.loadMessagesOfChannel(window);
@@ -12,6 +17,7 @@ const ChatWindowChannel = ({ window, chat }) => {
     channelMessagesListener.on((messages) => {
       console.log(messages);
       setMessages(messages);
+      scrollToBottom();
     });
   };
 
@@ -51,11 +57,12 @@ const ChatWindowChannel = ({ window, chat }) => {
           </details>
         </div>
 
-        <div>
+        <div className="msgs">
           {messages.map((message, key) => (
             <div key={`${key}-messages`}>
               <small>{message.time}</small>{" "}
-              <small>{message.peerInfo.alias}</small> <p>{message.msg}</p>{" "}
+              <small>{message.peerInfo.alias}</small> <p>{message.msg}</p>
+              <div ref={messagesEndRef} />
             </div>
           ))}
         </div>

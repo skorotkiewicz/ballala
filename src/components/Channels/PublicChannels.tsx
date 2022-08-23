@@ -29,7 +29,7 @@ const PublicChannels = ({ chat, setWindow }) => {
             <div>
               <button
                 onClick={() => {
-                  //   chat.joinPublicChannel(channel);
+                  chat.joinPublicChannel(channel);
                   setWindow(channel);
                 }}
               >

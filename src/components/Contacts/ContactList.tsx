@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import AddContact from "./AddContact";
 import Contact from "./Contact";
+import ContactInvites from "./ContactInvites";
 
 const ContactList = ({ chat, setWindow }) => {
   //   const [messages, setMessages] = useState([]);
@@ -8,6 +9,7 @@ const ContactList = ({ chat, setWindow }) => {
   const [contactsInvites, setContactsInvites] = useState([]);
   let contactsId = [];
   let contactsInvitesId = [];
+  const loaded = useRef(false);
 
   const contactHandler = async () => {
     const contactsListener = await chat.loadContacts();
@@ -57,42 +59,14 @@ const ContactList = ({ chat, setWindow }) => {
   };
 
   useEffect(() => {
-    contactHandler();
+    !loaded.current && contactHandler();
+    loaded.current = true;
   }, []);
 
   return (
     <div>
       <AddContact chat={chat} />
-
-      <div>
-        <h1>Contact Invites</h1>
-        {contactsInvites.map((contactInvite, key) => (
-          <div key={key}>
-            {/* <strong>{contactInvite.alias}</strong> */}
-            {/* <p>{contactInvite.pubKey}</p> */}
-            <button
-              onClick={async () => {
-                await chat.acceptContactInvite(
-                  contactInvite.alias,
-                  contactInvite.pubKey
-                );
-
-                // chat.addContact(contactInvite.alias, contactInvite.pubKey);
-              }}
-            >
-              Accept {contactInvite.alias}
-            </button>
-            <button
-              onClick={async () => {
-                await chat.denyContactInvite(contactInvite.pubKey);
-              }}
-            >
-              Deny {contactInvite.alias}
-            </button>
-          </div>
-        ))}
-      </div>
-
+      <ContactInvites contactsInvites={contactsInvites} chat={chat} />
       <Contact contacts={contacts} setWindow={setWindow} chat={chat} />
     </div>
   );

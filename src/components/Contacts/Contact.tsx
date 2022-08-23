@@ -1,4 +1,4 @@
-import { truncate } from "../lib/util";
+import { truncate } from "../../lib/util";
 
 const Contact = ({ contacts, setWindow, chat }) => {
   return (

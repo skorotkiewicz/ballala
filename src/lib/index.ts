@@ -1236,6 +1236,7 @@ export default class UnstoppableChat {
       path.not((key) => {
         passedEmitter.emit("channelMessages", loadedMsgsList);
       });
+
       path.on((peerMsgs) => {
         if (!peerMsgs) return;
         Object.keys(peerMsgs).forEach((time) => {
@@ -1331,6 +1332,7 @@ export default class UnstoppableChat {
               .get("new")
               .get(msgData.time)
               .put("disabled");
+
             passedEmitter.emit("channelMessages", loadedMsgsList);
           });
         });

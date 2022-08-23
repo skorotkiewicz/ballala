@@ -1,9 +1,9 @@
-import { useCallback } from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 const ChatWindow = ({ chat, publicKey }) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
+  const loaded = useRef(null);
 
   const messagesHandler = async () => {
     const contactMessagesListener = await chat.loadMessagesOfContact(publicKey);
@@ -19,7 +19,8 @@ const ChatWindow = ({ chat, publicKey }) => {
   }, [message]);
 
   useEffect(() => {
-    messagesHandler();
+    loaded.current !== publicKey && messagesHandler();
+    loaded.current = publicKey;
   }, []);
 
   return (

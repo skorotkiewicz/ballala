@@ -7,7 +7,7 @@ const AddContact = ({ chat }) => {
 
   return (
     <div>
-      <p>Add contact</p>
+      <h1>Add Contact</h1>
 
       <div>
         <input

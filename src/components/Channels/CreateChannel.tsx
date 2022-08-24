@@ -1,14 +1,12 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 
 const CreateChannel = ({ chat }) => {
   const [channelName, setChannelName] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
 
-  const create = useCallback(async () => {
-    const channel = await chat.createChannel(channelName, isPrivate);
-
-    console.log(channel);
-  }, [channelName, isPrivate]);
+  async function create() {
+    await chat.createChannel(channelName, isPrivate);
+  }
 
   return (
     <div>

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { scrollToBottom } from "../../lib/util";
 
 const ChatWindow = ({ chat, publicKey }) => {

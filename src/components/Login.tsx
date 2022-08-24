@@ -1,28 +1,25 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 
 const Login = ({ chat }) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [info, setInfo] = useState<any>({});
 
-  const join = useCallback(
-    async (type: string) => {
-      let join: any;
+  async function join(type: string) {
+    let join: any;
 
-      switch (type) {
-        case "register":
-          join = await chat.createUser(username, password);
-          break;
+    switch (type) {
+      case "register":
+        join = await chat.createUser(username, password);
+        break;
 
-        case "login":
-          join = await chat.join(username, password);
-          break;
-      }
+      case "login":
+        join = await chat.join(username, password);
+        break;
+    }
 
-      if (join.err) setInfo({ status: "err", message: join.err });
-    },
-    [username, password]
-  );
+    if (join.err) setInfo({ status: "err", message: join.err });
+  }
 
   return (
     <div>

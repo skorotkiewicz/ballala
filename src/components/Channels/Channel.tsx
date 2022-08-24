@@ -11,7 +11,6 @@ const Channel = ({ channels, setWindow }) => {
           onClick={async () => {
             // await chat.joinPublicChannel(channel);
 
-            console.log(channel);
             setWindow(channel);
           }}
         >

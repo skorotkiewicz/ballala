@@ -16,7 +16,7 @@ function App({ chat }) {
 
       setUsername(e.alias);
     });
-  }, [user.current]);
+  }, []);
 
   return (
     <div className="App">

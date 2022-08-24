@@ -8,8 +8,7 @@ const PublicChannels = ({ chat, setWindow }) => {
     const publicChannels = await chat.loadPublicChannels();
 
     publicChannels.on((channels) => {
-      console.log(channels);
-      setChannels(channels);
+      setChannels([...channels]);
     });
   };
 

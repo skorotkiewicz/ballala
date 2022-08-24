@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { scrollToBottom } from "../../lib/util";
 
 const ChatWindow = ({ chat, publicKey }) => {
   const [messages, setMessages] = useState([]);
@@ -6,22 +7,22 @@ const ChatWindow = ({ chat, publicKey }) => {
   const loaded = useRef(null);
   const messagesEndRef = useRef(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
   const messagesHandler = async () => {
     const contactMessagesListener = await chat.loadMessagesOfContact(publicKey);
+
     contactMessagesListener.on((messages) => {
-      setMessages(messages);
-      scrollToBottom();
+      setMessages([...messages]);
     });
   };
 
-  const send = useCallback(async () => {
+  useEffect(() => {
+    scrollToBottom(messagesEndRef);
+  }, [messages]);
+
+  async function send() {
     await chat.sendMessageToContact(publicKey, message);
     setMessage("");
-  }, [message]);
+  }
 
   useEffect(() => {
     loaded.current !== publicKey && messagesHandler();

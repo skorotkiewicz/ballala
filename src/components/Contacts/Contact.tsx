@@ -1,6 +1,6 @@
 import { truncate } from "../../lib/util";
 
-const Contact = ({ contacts, setWindow, chat }) => {
+const Contact = ({ contacts, setWindow }) => {
   return (
     <div>
       <h1>Contacts</h1>

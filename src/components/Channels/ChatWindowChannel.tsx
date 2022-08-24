@@ -1,5 +1,5 @@
-import {} from "react";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
+import { scrollToBottom } from "../../lib/util";
 
 const ChatWindowChannel = ({ window, chat }) => {
   const [messages, setMessages] = useState([]);
@@ -7,21 +7,15 @@ const ChatWindowChannel = ({ window, chat }) => {
   const loaded = useRef(null);
   const messagesEndRef = useRef(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
   const channelMessagesHandler = async () => {
     const channelMessagesListener = await chat.loadMessagesOfChannel(window);
 
-    channelMessagesListener.on((messages) => {
-      console.log(messages);
-      setMessages(messages);
-      scrollToBottom();
+    channelMessagesListener.on((msgs) => {
+      setMessages([...msgs]);
     });
   };
 
-  const send = useCallback(async () => {
+  async function send() {
     await chat.sendMessageToChannel(window, message, {
       action: "join",
       alias: chat.gun.user().alias,
@@ -30,7 +24,11 @@ const ChatWindowChannel = ({ window, chat }) => {
     });
 
     setMessage("");
-  }, [message]);
+  }
+
+  useEffect(() => {
+    scrollToBottom(messagesEndRef);
+  }, [messages]);
 
   useEffect(() => {
     loaded.current !== window.key && channelMessagesHandler();
@@ -73,6 +71,9 @@ const ChatWindowChannel = ({ window, chat }) => {
               type="text"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") send();
+              }}
             />
           </div>
           <div>

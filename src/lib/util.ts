@@ -11,3 +11,7 @@ export function truncate(
   }
   return text;
 }
+
+export const scrollToBottom = (messagesEndRef) => {
+  messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+};

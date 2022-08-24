@@ -4,10 +4,11 @@ import ContactList from "./Contacts/ContactList";
 import ChannelList from "./Channels/ChannelList";
 import ChatWindowChannel from "./Channels/ChatWindowChannel";
 import PublicChannels from "./Channels/PublicChannels";
+import { useData } from "../contexts/DataContext";
 
 const Dashboard = ({ chat, user }) => {
-  const [window, setWindow] = useState<any>(null);
   const [menu, setMenu] = useState(0);
+  const { window, setWindow } = useData();
 
   return (
     <div className="Dashboard">
@@ -46,10 +47,10 @@ const Dashboard = ({ chat, user }) => {
         {/* <button onClick={() => chat.reset()}>Reset</button> */}
 
         <div style={{ display: menu === 0 ? "block" : "none" }}>
-          <ContactList chat={chat} setWindow={setWindow} />
+          <ContactList chat={chat} />
         </div>
         <div style={{ display: menu === 1 ? "block" : "none" }}>
-          <ChannelList chat={chat} setWindow={setWindow} />
+          <ChannelList chat={chat} />
         </div>
 
         <div>

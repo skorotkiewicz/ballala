@@ -8,8 +8,11 @@ export function useData() {
 
 export function DataProvider({ children }) {
   const [window, setWindow] = useState(null);
+  const [auth, setAuth] = useState(null);
 
   const value = {
+    auth,
+    setAuth,
     window,
     setWindow,
   };

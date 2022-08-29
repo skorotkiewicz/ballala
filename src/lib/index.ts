@@ -98,9 +98,14 @@ export default class UnstoppableChat {
   publicChannelsList: Channel[];
   publicAnnouncementsList: Announcement[];
 
-  constructor(superpeers: any, publicName: string) {
-    this.gun = new Gun(superpeers);
-    this.publicName = publicName;
+  // constructor(superpeers: any, publicName: string) {
+  constructor(superpeers: any) {
+    // this.gun = new Gun(superpeers);
+    this.gun = new Gun({
+      peers: [superpeers],
+      localStorage: false,
+    });
+    this.publicName = null;
     this.contactsList = [];
     this.contactInvitesList = [];
     this.channelsList = [];
@@ -136,7 +141,8 @@ export default class UnstoppableChat {
 
   async join(username: string, password: string) {
     const gun = this.gun;
-    const publicName = this.publicName;
+    // const publicName = this.publicName;
+    const publicName = username;
 
     return new Promise((resolve) => {
       gun.on("auth", (res) => {
@@ -153,6 +159,18 @@ export default class UnstoppableChat {
         resolve(res);
       });
     });
+  }
+
+  async authBack() {
+    const gun = this.gun;
+    await gun.user().recall({ sessionStorage: true });
+
+    gun.user(gun.user().is?.alias).once((e) => {
+      this.publicName = e.alias;
+      gun.user().alias = e.alias;
+    });
+
+    return gun.user();
   }
 
   async createUser(username: string, password: string) {
@@ -596,7 +614,7 @@ export default class UnstoppableChat {
             loadedMsgsList.push({
               time: msgData.time,
               msg: decMsg,
-              owner: name,
+              // owner: name,
             });
             loadedMsgsList.sort((a: any, b: any) => a.time - b.time);
             gun
@@ -626,6 +644,7 @@ export default class UnstoppableChat {
 
   async createChannel(channelName: string, isPrivate: boolean) {
     const gun = this.gun;
+    console.log(gun.user());
     if (!gun.user().is) return;
     const channelPair = await (Gun.SEA as any).pair();
     const channelKey = channelPair.epub;
@@ -1339,6 +1358,7 @@ export default class UnstoppableChat {
       });
     }
     const loadedPeers = {};
+
     return {
       on: (cb: (param: Events["channelMessages"]) => void) => {
         emitter.on("channelMessages", cb);

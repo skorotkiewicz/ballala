@@ -8,7 +8,7 @@ import { useData } from "../contexts/DataContext";
 
 const Dashboard = ({ chat, user }) => {
   const [menu, setMenu] = useState(0);
-  const { window, setWindow } = useData();
+  const { window, setWindow, setAuth } = useData();
 
   return (
     <div className="Dashboard">
@@ -22,6 +22,7 @@ const Dashboard = ({ chat, user }) => {
           <button
             onClick={() => {
               chat.logout();
+              setAuth(null);
             }}
           >
             Logout

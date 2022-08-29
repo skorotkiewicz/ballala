@@ -49,7 +49,8 @@ const ChatWindow = ({ chat, publicKey }) => {
       <div>
         {messages.map((message, key) => (
           <div key={key}>
-            <small>{message.time}</small> <small>{message.owner}</small>{" "}
+            <small>{message.time}</small>
+            {/* <small>{message.owner}</small>{" "} */}
             <p>{message.msg}</p>
             <div ref={messagesEndRef} />
           </div>

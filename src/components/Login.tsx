@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useData } from "./../contexts/DataContext";
 
 const Login = ({ chat }) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [info, setInfo] = useState<any>({});
+  const { setAuth } = useData();
 
   async function join(type: string) {
     let join: any;
@@ -11,10 +13,12 @@ const Login = ({ chat }) => {
     switch (type) {
       case "register":
         join = await chat.createUser(username, password);
+        setAuth(join);
         break;
 
       case "login":
         join = await chat.join(username, password);
+        setAuth(join);
         break;
     }
 

@@ -19,7 +19,9 @@ const Channel = ({ channels, setWindow }) => {
           </div>
           <div className="box">
             <p className="b-name">
-              {channel.name} <small>{channel.userCount} users</small>
+              {channel.name}{" "}
+              <small>{Object.keys(channel.peers).length} users</small>
+              {/* {channel.name} <small>{channel.userCount} users</small> */}
             </p>
             <p className="b-pubkey">
               {truncate(channel.latestMsg || "", 10, 10, 40)}

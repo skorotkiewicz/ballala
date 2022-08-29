@@ -2,21 +2,24 @@ import { useEffect, useRef, useState } from "react";
 import "./App.scss";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
+import { useData } from "./contexts/DataContext";
 
 function App({ chat }) {
   const [username, setUsername] = useState("");
+  const user = useRef(null);
+  const { auth } = useData();
 
-  const user = useRef(
-    chat.gun.user().recall({ sessionStorage: true }, (e) => {})
-  );
+  const authHandler = async () => {
+    const bck = await chat.authBack();
+    if (bck) {
+      user.current = { is: bck };
+      setUsername(bck.alias);
+    }
+  };
 
   useEffect(() => {
-    chat.gun.user(user.current?.is?.alias).once((e) => {
-      user.current.alias = e.alias;
-
-      setUsername(e.alias);
-    });
-  }, []);
+    authHandler();
+  }, [auth]);
 
   return (
     <div className="App">

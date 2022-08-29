@@ -1,22 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ChatWindow from "./Contacts/ChatWindow";
 import ContactList from "./Contacts/ContactList";
 import ChannelList from "./Channels/ChannelList";
 import ChatWindowChannel from "./Channels/ChatWindowChannel";
 import PublicChannels from "./Channels/PublicChannels";
 import { useData } from "../contexts/DataContext";
+import { truncate } from "./../lib/util";
 
 const Dashboard = ({ chat, user }) => {
   const [menu, setMenu] = useState(0);
   const { window, setWindow, setAuth } = useData();
+  const userid = user.is.alias + "|||" + user.is.pub;
+  const [info, setInfo] = useState("");
+
+  useEffect(() => {
+    setTimeout(() => {
+      setInfo("");
+    }, 5000);
+  }, [info]);
 
   return (
     <div className="Dashboard">
       <main>
         <div>
-          <small>{user.is.pub}</small>
+          <label>
+            <strong>My ID:</strong>
+            <div
+              title={userid}
+              onClick={() => {
+                navigator.clipboard.writeText(userid);
+                setInfo("Copied your ID to your clipboard.");
+              }}
+            >
+              {truncate(userid, 20, 20, 50)}
+            </div>
+          </label>
+
+          {info && <div style={{ color: "green" }}>{info}</div>}
         </div>
-        <div>{user.alias}</div>
 
         <div>
           <button

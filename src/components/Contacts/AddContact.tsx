@@ -1,9 +1,7 @@
 import { useState } from "react";
 
 const AddContact = ({ chat }) => {
-  const [username, setUsername] = useState("");
-  const [publicKey, setPublicKey] = useState("");
-  const [info, setInfo] = useState("");
+  const [userContact, setUserContact] = useState("");
 
   return (
     <div>
@@ -12,34 +10,22 @@ const AddContact = ({ chat }) => {
       <div>
         <input
           type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </div>
-
-      <div>
-        <input
-          type="text"
-          placeholder="Public Key"
-          value={publicKey}
-          onChange={(e) => setPublicKey(e.target.value)}
+          placeholder="User ID"
+          value={userContact}
+          onChange={(e) => setUserContact(e.target.value)}
         />
       </div>
 
       <div>
         <button
           onClick={async () => {
-            const add = await chat.addContact(username, publicKey);
-            // setInfo(add);
-            console.log(add);
+            const uc = userContact.split("|||");
+            await chat.addContact(uc[0], uc[1]);
           }}
         >
           Add contact
         </button>
       </div>
-
-      <div>{info}</div>
     </div>
   );
 };
